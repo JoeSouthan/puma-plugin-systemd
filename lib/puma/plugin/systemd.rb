@@ -120,8 +120,14 @@ Puma::Plugin.create do
 
   # Take puma's stats and construct a sensible status line for Systemd
   class Status
+    attr_reader :stats
+
     def initialize(stats)
       @stats = stats
+    end
+
+    def threads
+      stats.fetch("threads", 1)
     end
 
     def clustered?
